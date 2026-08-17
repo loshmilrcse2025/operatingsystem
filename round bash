@@ -1,0 +1,46 @@
+#!/bin/bash
+
+echo "Enter number of processes:"
+read n
+
+echo "Enter burst times:"
+read -a bt
+
+echo "Enter time quantum:"
+read tq
+
+for ((i=0; i<n; i++))
+do
+    rem[$i]=${bt[i]}
+done
+
+time=0
+
+while true
+do
+    done=1
+
+    for ((i=0; i<n; i++))
+    do
+        if [ ${rem[i]} -gt 0 ]
+        then
+            done=0
+
+            if [ ${rem[i]} -gt $tq ]
+            then
+                time=$((time + tq))
+                rem[$i]=$((rem[i] - tq))
+            else
+                time=$((time + rem[i]))
+                rem[$i]=0
+            fi
+        fi
+    done
+
+    if [ $done -eq 1 ]
+    then
+        break
+    fi
+done
+
+echo "Round Robin Scheduling Completed"
