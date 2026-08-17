@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Creating a child process..."
+
+(
+    echo "Child Process ID: $$"
+)
+
+echo "Parent Process ID: $$"
